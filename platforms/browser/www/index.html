@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var title = $("#title").val();
+            var description = $("#description").val();
+            var time = $("#time").val();
+            var dataString = "&title=" + title + "&description=" + description + "&time=" + time + "&insert=";
+            if ($.trim(title).length > 0 & $.trim(description).length > 0 & $.trim(time).length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://anjay.ml/insert.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+
+<body style="background-color: aqua">
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <h1 class="title">Insert List You Want To do</h1>
+        <a class="button button-clear" href="readjson.html">Read JSON</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>To do</label>
+            <input type="text" id="title" value="" />
+        </div>
+        <div class="item">
+            <label>description</label>
+            <input type="text" id="description" value="" />
+        </div>
+        <div class="item">
+            <label>time</label>
+            <input type="text" id="time" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Insert" />
+        </div>
+    </div>
+</body>
+
+</html>

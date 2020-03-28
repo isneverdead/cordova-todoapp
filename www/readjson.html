@@ -1,0 +1,34 @@
+<html>
+
+<head style="background-color:crimson">
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "http://anjay.ml/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var id = field.id;
+                var title = field.title;
+                var description = field.description;
+                var time = field.time;
+                $("#listview").append("<a class='item' href='form.html?id=" + id + "&title=" + title + "&description=" + description + "&time=" + time + "'><span class='item-note'>" + time + "</span><h2>" + title + " </h2><p>" + description + "</p></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body style="background-color:aqua">
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">To Do List</h1>
+    </div>
+    <br/>
+    <br/>
+    <ul class="list" id="listview">
+    </ul>
+</body>
+
+</html>
